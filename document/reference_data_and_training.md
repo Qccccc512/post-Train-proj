@@ -188,7 +188,7 @@ Stage 2 search 的最终赢家是 `stage2_best_lr1e4_r16`。
 
 - 数据：60k frozen mix
 - `configs/train/stage2_qwen3_8b_lora.yaml`
-- `train/val` 按 98/2 口径
+- `train/val` 按 98/2 口径（95/5的 eval 成本较高）
 
 这个运行后来被失败分析否定，因此它只保留为反例归档。
 

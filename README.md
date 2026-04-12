@@ -82,7 +82,7 @@
 当前入口分两类：
 
 - `launchers/global/*`
-  - 适合 Colab 或已经准备好的全局 Python 环境
+  - 适合 Colab 或计划使用全局 Python 环境而不担心造成破坏
 - `launchers/local/*`
   - 适合本地 / 服务器 conda 环境
 
