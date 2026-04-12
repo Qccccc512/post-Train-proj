@@ -126,29 +126,47 @@ stage1 的关键不是单个分数，而是“训练难易度”和“外部 ben
 
 | 组别 | 配方 | 平均序列长度 | 训练步速 | eval_loss | C-Eval | IFEval Strict | IFEval Loose | BFCL Overall | BFCL Live | BFCL Multi-Turn |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| baseline prompt | Qwen3-8B (Prompt) | - | - | - | 79.79% | 34.00% | 42.00% | 42.58% | 80.00% | 50.00% |
+| base | Qwen3-8B 原模型 | - | - | - | 79.79% | 34.00% | 42.00% | 42.58% | 80.00% | 50.00% |
 | A | Hermes only | 1351.46 | 0.304 | 0.4943 | 79.79% | 34.00% | 40.00% | 43.17% | 90.00% | 50.00% |
 | E | xLAM only | 465.68 | 0.587 | 0.0304 | 79.64% | 36.00% | 44.00% | 38.83% | 80.00% | 37.50% |
-| H | Step tool-call only | 3740.20 | 0.117 | 0.4169 | 79.49% | 36.00% | 44.00% | 35.08% | 80.00% | 25.00% |
+| G | Glaive FC v2 only | 507.79 | 0.558 | 0.3389 | 79.49% | 36.00% | 44.00% | 35.08% | 80.00% | 25.00% |
+| H | Step tool-call only | 3740.20 | 0.117 | 0.4169 | 79.87% | 36.00% | 42.00% | 38.83% | 80.00% | 37.50% |
 | I | Step tool-call + Step general (4:1) | 3489.42 | 0.125 | 0.4891 | 79.64% | 36.00% | 44.00% | 38.83% | 80.00% | 37.50% |
+
+注：`base` 和 `H` 的 `C-Eval / IFEval / BFCL` 采用 rerun 结果；`H` 的平均序列长度、训练步速和 `eval_loss` 仍对应原始训练日志，因为 rerun 只重新执行了 benchmark。
+
+从数据工程角度看，stage1 的成本差异其实非常大。Step-heavy 配方把平均序列长度推到 `3.5k+ token`，训练吞吐明显下降；Hermes 处在更容易承受的中间带，而 xLAM / Glaive 虽然更短更快，但后续 benchmark 并没有因此占优。
+
+![Stage1 sequence length vs throughput](analysis/stage1/2026-04-04_remote_stage1_qwen3_8b/plots/seq_len_vs_throughput.png)
+
+*图 1. 已有曲线展示了 stage1 不同配方的平均序列长度与训练步速关系。Step 配方最重，xLAM / Glaive 最轻，Hermes 位于中间。*
+
+如果把训练成本和 BFCL Overall 放到同一张图里，stage1 的取舍会更直观：
+
+![Stage1 throughput vs BFCL overall](report_assets/stage1_tradeoff.png)
+
+*图 2. 训练吞吐与 BFCL Overall 的关系。Hermes 不是最快，但在代表性组里是最稳的主干；Step 配方成本最高，xLAM / Glaive 则呈现“快但外部收益有限”的特点。*
 
 #### 4.1.1 分项解读
 
 从这组抽样结果看，stage1 更像是在回答“哪类数据适合做主干”，而不是“哪组数据能把所有指标一起拉满”。
 
-- `C-Eval` 基本都落在 `79.49%~79.79%` 之间，变化幅度很小，说明 stage1 的短训主要在修正 tool-calling 行为和输出习惯，并没有明显破坏原生知识面。这一点很重要，因为它表明我们在做能力注入时，没有把模型推离 `Qwen3-8B` 原来的知识先验。
-- `IFEval` 的变化比 `C-Eval` 更敏感。`xLAM` 和 `Step` 配方的 `Strict / Loose` 都略高于 baseline，说明这些数据确实在帮助模型学习更强的格式控制、约束响应和输出边界；但这种提升没有同步转化为更好的 `BFCL`，所以它更像是“更会遵守指令”，而不是“更会完成 agent 任务”。
-- `BFCL` 最能区分不同数据源的实际价值。`Hermes only` 的 `BFCL Overall` 略高于 baseline，同时 `BFCL Live` 明显更高，说明它是比较稳的主干信号；`xLAM only` 虽然 `eval_loss` 最低，但 `BFCL Overall` 和 `Multi-Turn` 都回落，说明训练损失在这里更像是在奖励“短、整齐、容易拟合”的样本分布，而不是完整的工具能力；`Step tool-call only` 则把序列长度和训练成本推得最高，但 `Multi-Turn` 反而明显下降，说明长轨迹数据更适合作为补充能力来源，而不是单独放大就能赢。
+- `C-Eval` 基本都落在 `79.49%~79.87%` 之间，变化幅度很小，说明 stage1 的短训主要在修正 tool-calling 行为和输出习惯，并没有明显破坏原生知识面。这一点很重要，因为它表明我们在做能力注入时，没有把模型推离 `Qwen3-8B` 原来的知识先验。
+- `IFEval` 的变化比 `C-Eval` 更敏感。`xLAM` 明显更高，`Step` 配方在 `Strict` 上也有一定改善，但 `H` 的 rerun `Loose` 只回到 baseline 水平，说明这类数据对格式控制的帮助并不稳定。也就是说，它更像是在局部改善输出约束，而不是稳定提升整体指令遵循。
+- `BFCL` 最能区分不同数据源的实际价值。`Hermes only` 的 `BFCL Overall` 略高于 baseline，同时 `BFCL Live` 明显更高，说明它是比较稳的主干信号；`xLAM only` 虽然 `eval_loss` 最低，但 `BFCL Overall` 和 `Multi-Turn` 都回落，说明训练损失在这里更像是在奖励“短、整齐、容易拟合”的样本分布，而不是完整的工具能力；`Step tool-call only` 在 rerun 后恢复到了 `38.83% / 37.50%`，比第一次快速评测更好，但考虑到它的序列长度和训练成本仍然最高，整体性价比依旧不如 Hermes，说明长轨迹数据更适合作为补充能力来源，而不是单独充当训练主干。
+- `Glaive FC v2 only` 则是这轮比较里最典型的历史合成对照。它的训练配方短、快、容易拟合，但 BFCL Overall 只有 `35.08%`，`Multi-Turn` 也只有 `25.00%`，明显低于 baseline 和 Hermes。换句话说，没有严格清洗、重构和再对齐过的远古合成数据，很难在当前 tool-calling 目标上提供稳定增益，更多只是一个“能跑通但收益有限”的旧 baseline。
 
-这组结果最值得写进报告的点有三个：
+这组结果值得写进报告的点：
 
 1. **xLAM-only 最容易把 loss 做漂亮**，但这种“漂亮”主要来自样本结构更短、更规整，并没有自动换成更强的 `C-Eval`、`IFEval` 或 `BFCL`。
-2. **Hermes-only 的 loss 并不最低，但外部表现最稳**。它没有把某一项指标推到极端，却更像一个能守住整体下限的主干数据源。
-3. **Step-heavy 配方显著拉长序列、拖慢训练，但没有自动换来更好的外部能力**。`Step tool-call` 和 `Step general` 确实给模型补进了更长轨迹和更多 agentic 形态，但在这个阶段，它们还更像补位材料，不是主干替代品。
+2. **Glaive FC v2 only 说明了老合成数据的上限**。它不是不能训、不能跑，但如果没有严格清洗和重新对齐，就很难带来稳定的外部收益，尤其在多轮和整体 BFCL 上仍然明显落后于 Hermes，这让它更像历史对照而不是主干。
+3. **Hermes-only 的 loss 并不最低，但外部表现最稳**。它没有把某一项指标推到极端，却更像一个能守住整体下限的主干数据源。
+4. **Step-heavy 配方显著拉长序列、拖慢训练，收益也不够稳定**。`Step tool-call` 的 rerun 比第一次快速评测更好，但它仍然没有展现出与训练成本相匹配的优势；`Step tool-call + Step general` 说明 Step 更适合做补位，而不是单独放大成主干。
 
 这和一开始的预期形成了很清楚的对照：
 
 - “短、整齐、好优化”的数据不一定最适合做主干
+- “旧、合成、没清洗透”的数据也不一定还保有历史红利
 - “看起来更 agentic”的数据不一定一加就涨分
 - Hermes 更像一个稳定的能力锚点，Step 更适合作补充，而不是替代
 
@@ -156,22 +174,30 @@ stage1 的关键不是单个分数，而是“训练难易度”和“外部 ben
 
 - Hermes 是主线
 - Step 小比例补充更合理
-- xLAM / Glaive 更适合做对照，不适合单独放大
+- xLAM / Glaive 更适合做对照，不适合单独放大，其中 Glaive 更像“老合成数据为什么不能直接拿来当主干”的反例
 
 ### 4.2 Stage2 search：短训超参搜索
 
 stage2 search 固定了 10k 的 frozen mix，然后做 500-step 短训搜索。  
 这一步的目的不是长跑，而是看“哪组 LoRA / 学习率更容易把 tool-calling 和 instruction following 拉起来，同时不明显破坏 base model”。
 
-在训练损失层面，6 组短训结果里，`lr=5e-5, r=16` 的 `eval_loss` 最低，说明短训的确能被 loss 指标分出优劣。  
-但后续完整 benchmark 证明，**最小的 eval_loss 并不等于最好的最终模型**。
+在训练损失层面，把前后两批搜索合并起来看，总共 6 + 4 = 10 组 short-run 配置里，`lr=2e-4, r=16` 的 `best eval_loss` 最低，`lr=1e-4, r=16` 紧随其后。  
+也就是说，最终进入完整 benchmark 的两条候选配置其实都来自第二批搜索；而第一批搜索更多是在帮我们收窄范围、确认量级。
+
+但后续完整 benchmark 证明，**训练内最优的 eval_loss 并不等于最终最好的模型**。
+
+这一点从合并两批搜索后的汇总图里会更清楚：
+
+![Stage2 search overall best eval loss](analysis/stage2/all_rounds_overall/plots/best_eval_loss_overall.png)
+
+*图 3. 合并两批 stage2 search 后的 10 组配置 `best eval_loss` 对比。进入最终 benchmark 的 `lr2e4-r16` 和 `lr1e4-r16` 都来自第二批搜索；其中 `lr2e4-r16` 的训练内 loss 更低，但最终外部 benchmark 仍由 `lr1e4-r16` 胜出。*
 
 最终真正入选的是 `stage2_best_lr1e4_r16`。  
 它相对 `lr2e4-r16` 的优势不只是一个总分，而是更接近项目目标的“实用 agent 能力”：
 
 - `BFCL Overall` 更高
 - `BFCL Live` 更高
-- `BFCL Web Search` 更高
+- `Web Search` 更高
 - `IFEval Loose` 更高
 - `C-Eval` 基本持平
 - 平均 latency 更低
@@ -185,17 +211,24 @@ stage2 search 固定了 10k 的 frozen mix，然后做 500-step 短训搜索。
 
 | run | C-Eval | IFEval Strict | IFEval Loose | BFCL Overall | Non-Live | Live | Multi-Turn | Web Search | 说明 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| baseline prompt | 79.79% | 34.00% | 40.00% | 42.58% | 95.83% | 80.00% | 50.00% | 0.00% | 原生 prompt 基线 |
+| stage2 base | 79.79% | 34.38% | 40.48% | 34.95% | 88.38% | 78.90% | 31.87% | 2.00% | stage2 统一基线 |
 | `lr2e4-r16` | 79.57% | 35.67% | 41.59% | 35.21% | 88.35% | 79.50% | 33.38% | 0.50% | backup candidate |
 | `lr1e4-r16` | 79.72% | 35.67% | 42.70% | 35.67% | 88.73% | 80.24% | 32.25% | 4.00% | 最终 short-run winner |
-| full-length bf16 partial | 72.29% | 31.98% | 38.45% | 11.76%* | 13.29%* | 4.59%* | 0.00%* | 3.50%* | partial, 19/22 类别 |
+| full-length bf16 partial | 72.29% | 31.98% | 38.45% | 11.76%* | 13.29%* | 4.59%* | 0.00%* | 3.50%* | partial, 未完成所有评测，部分结果已足够糟糕 |
 
 注：
 
+- 这一表统一采用 stage2 的 benchmark 口径：`stage2_best_base_model`、`stage2_best_lr2e4_r16`、`stage2_best_lr1e4_r16` 与 final partial
 - `Non-Live` 可以视为单步函数调用准确率的核心信号
 - `Multi-Turn` 可以视为多步任务完成率的核心信号
 - `Live`、`Web Search`、`Memory` 更像 agent 场景的辅助诊断项
-- full-length BFCL 只是 partial recovery，缺失 `memory/kv`、`memory/vector`、`memory/rec_sum`
+- full-length BFCL 只恢复出了 partial-eval，缺失 `memory/kv`、`memory/vector`、`memory/rec_sum`
+
+把最关键的 benchmark 压成一张图以后，short-run 的小幅正向收益和 full-length 的灾难性回退会更直观：
+
+![Stage2 benchmark comparison](report_assets/stage2_benchmark_comparison.png)
+
+*图 4. stage2 base、两个 short-run candidate 与 full-length final 的关键 benchmark 对比。full-length 的 BFCL 仍然只是 partial-eval，但已经足够显示明显崩坏。*
 
 从这个表里最清楚的一件事是：
 
@@ -207,25 +240,121 @@ stage2 search 固定了 10k 的 frozen mix，然后做 500-step 短训搜索。
 
 这次 full-length 失败并不是“只在某一个 benchmark 上翻车”，而是多条证据同时出现。
 
-#### C-Eval
+#### 4.4.1 C-Eval：同一道题，final 从正确选项回退到错误选项
 
-在 `environmental_impact_assessment_engineer` 的一道题上，final 模型把正确选项错选成了另一项，而 base 和 short-run winner 都答对了。  
-这说明 final 的问题不是只发生在工具链上，而是已经回到**基础选择题层面的稳定回退**。
+样本来自 `environmental_impact_assessment_engineer / doc_id=17`。这一题的正确答案是 `C. 总铜`。  
+需要说明的是，`C-Eval` 在这里不是自由生成整段答案，而是比较四个候选选项 token 的对数概率，所以“模型的答案”体现为哪一个选项得分最高；数值越大、越接近 `0`，表示模型越偏好该选项。
 
-#### IFEval
+题目如下：
 
-在一个要求“不能用逗号、至少 3 个 markdown section、至少 300 词”的任务里，final 输出却主动加了额外的自我指挥内容和表情符号，属于明显的指令污染和元叙述失控。  
-这不是单纯漏掉一条格式规则，而是模型把原始约束打散后又自我加戏。
+```text
+根据《污水综合排放标准》(GB8978—1996)，为判定下列污染物是否达标，可在排污单位总排放口采样的是____。
+A. 苯并[a]芘
+B. 六价铬
+C. 总铜
+D. 总镉
+```
 
-#### BFCL
+同一道题上，三个模型的实际打分分别是：
 
-在一个并行天气查询任务里，final 输出了带语法错误的函数调用表达式，括号不配对，直接导致 AST 解码失败。  
-这说明问题已经不是“调用得不够好”，而是**连可执行函数调用的语法都不稳定了**。
+- `base`：`A=-8.539`，`B=-8.164`，`C=-5.789`，`D=-8.664`，最高分是 `C`
+- `lr1e4-r16`：`A=-8.534`，`B=-8.159`，`C=-5.784`，`D=-8.784`，最高分是 `C`
+- `full-length final`：`A=-3.320`，`B=-4.820`，`C=-3.695`，`D=-5.320`，最高分变成了 `A`
 
-#### BFCL multi-turn
+这类回退说明 final 的问题已经不只发生在工具调用上，而是连基础选择题层面的偏好排序都发生了明显漂移。
 
-在多轮文件操作任务里，final 出现了空响应或重复碎片化文本，无法稳定给出第一轮可执行 action 序列。  
-这就是为什么 `Multi-Turn` 最终掉到 `0.00%`。
+#### 4.4.2 IFEval：真实生成文本出现元指令污染
+
+样本 `doc_id=0` 的要求是：
+
+- 不要使用逗号
+- 至少 3 个 markdown highlighted section
+- 至少 300 词
+
+在这条样本上，`lr1e4-r16` 的 `strict / loose = True / True`，而 final 变成了 `False / False`。  
+更重要的是，问题不只是“少满足了一条格式规则”，而是 final 的真实生成文本已经进入了明显的元叙述状态。
+
+`lr1e4-r16` 的开头是：
+
+```text
+Also make sure to include the name of the person as the first sentence.
+Raymond III Count of Tripoli was born into the Crusader states during the medieval period ...
+*highlighted section part 1*
+```
+
+而 full-length final 的开头直接变成了：
+
+```text
+The rest of the text should be written normally. Additionally, include an emoji representing the content type (e.g., 📖).
+
+The user wants to ensure that the generated summary is accurate and comprehensive while also meeting specific formatting requirements.
+
+To achieve this I will first extract the relevant information from the Wikipedia page about Raymond III Count of Tripoli.
+```
+
+这个例子里，final 不但自己编造了“加 emoji”这种原题里没有的额外要求，还立刻写出带逗号的元解释句。  
+需要强调的是，`lr1e4-r16` 这条样本也不算“完美自然”的答案，但它至少仍停留在正文生成模式里；final 则已经先输出额外规则和元解释。  
+也就是说，它不是简单漏了一条 instruction，而是把原始约束打散后，先进入“自我解释 / 自我规划”模式，再去写答案。
+
+#### 4.4.3 BFCL Live：同题输出从可执行调用退化为语法错误
+
+样本 `live_parallel_0-0-0` 要求同时查询北京和上海天气。  
+base 和 short-run winner 在这题上的真实输出都是可解析的：
+
+```text
+[get_current_weather(location="北京, 中国"), get_current_weather(location="上海, 中国")]
+```
+
+而 full-length final 的真实输出是：
+
+```text
+[get_current_weather(location="Beijing, China"), get_current_weather(location="Shanghai, China"))]
+```
+
+评分器给出的错误是：
+
+```text
+ast_decoder:decoder_failed
+Invalid syntax. Failed to decode AST. closing parenthesis ')' does not match opening parenthesis '['
+```
+
+这里的问题已经不是“调用参数稍有偏差”，而是多了一个右括号，导致整个函数调用表达式无法执行。
+
+#### 4.4.4 BFCL Multi-Turn：第一轮 action list 直接失真
+
+样本 `multi_turn_base_0` 的第一轮任务是：
+
+```text
+Move 'final_report.pdf' within document directory to 'temp' directory in document. Make sure to create the directory.
+```
+
+在这题上，base 的首轮输出是正常的工具序列：
+
+```text
+[cd(folder="document"), mkdir(dir_name="temp"), mv(source="final_report.pdf", destination="temp")]
+```
+
+`lr1e4-r16` 的首轮候选也仍然保持在“可执行动作列表”的范畴内，例如：
+
+```text
+[mkdir(dir_name="temp"), mv(source="final_report.pdf", destination="temp")]
+```
+
+但 full-length final 的首轮真实输出已经变成了：
+
+```text
+"document"
+"file"file"file"file"file"file"file"file"file"file"file"file"file"file"...
+```
+
+对应评分错误是：
+
+```text
+multi_turn:empty_turn_model_response
+Model response list is empty for turn 0
+```
+
+也就是说，解码器在这轮里已经提取不出任何合法工具动作。对于 multi-turn 任务来说，这种首轮失效会直接把后续所有轮次一起拖垮，这也是 `Multi-Turn = 0.00%` 的最直观证据。
 
 ## 5. 分析与讨论
 
@@ -249,6 +378,7 @@ stage2 search 固定了 10k 的 frozen mix，然后做 500-step 短训搜索。
 - full-length 的 `eval_loss` 继续下降，但外部 benchmark 同步恶化
 - `C-Eval`、`IFEval`、`BFCL live / non-live / multi-turn` 都一起掉
 - `BFCL` 的崩坏不是单点，而是语法、格式、状态保持一起出问题
+- 4.4 的真实样本同时覆盖了选项偏好回退、元指令污染、单轮调用语法崩坏和多轮首轮失效
 
 这说明 final 问题不是简单的 merge 误差、不是基座错配，也不是单一 benchmark 噪声，而更像：
 
@@ -276,10 +406,6 @@ BFCL V4 的 multi-turn 对 32k 8B 模型本来就很硬，而本项目训练时�
 
 所以它是放大器，不是唯一根因。
 
-#### `<think>` 掩码不是这次失败的主因
-
-仓库里最初对 `<think>` 掩码有过怀疑，但后来已经确认那条异常来自检查器定位方式的 bug，而不是训练逻辑本身。  
-也就是说，`think` mask 可以继续做代码清理，但不能拿来解释这次 full-length 崩盘。
 
 ## 6. 总结与展望
 
