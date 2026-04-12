@@ -1,0 +1,2 @@
+Rank,Model,Agentic Overall Acc,Web Search Summary,Web Search Base,Web Search No Snippet,Memory Summary,Memory KV,Memory Vector,Memory Recursive Summarization
+1,Qwen3-8B (Prompt),2.54%,4.00%,3.00%,5.00%,1.08%,1.94%,1.29%,0.00%

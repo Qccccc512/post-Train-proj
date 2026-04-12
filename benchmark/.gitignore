@@ -1,0 +1,4 @@
+*
+!.gitignore
+!README.md
+!framework_versions.lock.json

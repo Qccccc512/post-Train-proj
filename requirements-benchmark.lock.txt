@@ -1,0 +1,31 @@
+# Benchmark environment dependencies
+# ==================================
+# This environment hosts lm-eval, BFCL, and vLLM together.
+# It is managed via conda environment "post-train-benchmark".
+#
+# Installation notes:
+# - Benchmark setup scripts should install from this file directly:
+#   pip install -r requirements-benchmark.lock.txt
+# - Keep the top-level benchmark package set in sync with the pinned runtime we
+#   use for Stage 2 search/final evaluation on Colab and local benchmark hosts.
+#
+# Known warning (safe to ignore):
+# - opencv-python-headless 4.13.0.92 requires numpy>=2, but numpy 1.26.4 is installed
+# - This is fine because opencv is only a transitive dependency of bfcl-eval
+#   and is NOT used in our evaluation pipeline (we use rule-based evaluation)
+
+lm_eval==0.4.11
+bfcl-eval==2025.12.17
+vllm==0.19.0
+torch==2.10.0
+torchaudio==2.10.0
+torchvision==0.25.0
+transformers==4.57.6
+huggingface_hub==0.36.2
+tokenizers==0.22.2
+numpy==1.26.4
+langdetect==1.0.9
+immutabledict==4.2.1
+soundfile==0.13.1
+bitsandbytes==0.48.1
+pycountry==26.2.16

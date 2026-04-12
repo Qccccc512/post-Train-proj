@@ -1,0 +1,20 @@
+{
+  "train": {
+    "rows": 4749,
+    "avg_seq_len": 1239.9,
+    "max_seq_len": 3872,
+    "avg_supervised_tokens": 211.62,
+    "raw_rows": 4749,
+    "kept_rows": 4749,
+    "skipped_rows": 0
+  },
+  "validation": {
+    "rows": 251,
+    "avg_seq_len": 1169.42,
+    "max_seq_len": 3265,
+    "avg_supervised_tokens": 198.98,
+    "raw_rows": 251,
+    "kept_rows": 251,
+    "skipped_rows": 0
+  }
+}

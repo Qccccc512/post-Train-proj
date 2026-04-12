@@ -1,0 +1,128 @@
+{
+  "timestamp": "2026-04-12 11:28:23",
+  "dry_run": false,
+  "project_repo": "yyyyFan/final_proj",
+  "final_repo": "yyyyFan/final_proj-stage2-best-lr1e4-r16",
+  "winner_run": "stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500",
+  "winner_checkpoint": "best",
+  "failed_run": "stage2train_20260408_095122_stage2_qwen3_8b_lora",
+  "canonical_base_model": "Qwen/Qwen3-8B",
+  "metadata_patch_operations": [
+    {
+      "checkpoint_remote_dir": "runs/stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500/checkpoints/best",
+      "files": [
+        {
+          "path": "/tmp/hf_patch_run_metadata_uxnza81j/runs/stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500/checkpoints/best/adapter_config.json",
+          "old_base_model_name_or_path": "/content/post-Train-proj/runs/_hf_cache/models/Qwen3-8B",
+          "new_base_model_name_or_path": "Qwen/Qwen3-8B",
+          "changed": true
+        },
+        {
+          "path": "/tmp/hf_patch_run_metadata_uxnza81j/runs/stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500/checkpoints/best/README.md",
+          "changed": true
+        }
+      ]
+    },
+    {
+      "checkpoint_remote_dir": "runs/stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500/checkpoints/final",
+      "files": [
+        {
+          "path": "/tmp/hf_patch_run_metadata_uxnza81j/runs/stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500/checkpoints/final/adapter_config.json",
+          "old_base_model_name_or_path": "/content/post-Train-proj/runs/_hf_cache/models/Qwen3-8B",
+          "new_base_model_name_or_path": "Qwen/Qwen3-8B",
+          "changed": true
+        },
+        {
+          "path": "/tmp/hf_patch_run_metadata_uxnza81j/runs/stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500/checkpoints/final/README.md",
+          "changed": true
+        }
+      ]
+    },
+    {
+      "checkpoint_remote_dir": "runs/stage2train_20260408_095122_stage2_qwen3_8b_lora/checkpoints/best",
+      "files": [
+        {
+          "path": "/tmp/hf_patch_run_metadata_uxnza81j/runs/stage2train_20260408_095122_stage2_qwen3_8b_lora/checkpoints/best/adapter_config.json",
+          "old_base_model_name_or_path": "/content/post-Train-proj/runs/_hf_cache/models/Qwen3-8B",
+          "new_base_model_name_or_path": "Qwen/Qwen3-8B",
+          "changed": true
+        },
+        {
+          "path": "/tmp/hf_patch_run_metadata_uxnza81j/runs/stage2train_20260408_095122_stage2_qwen3_8b_lora/checkpoints/best/README.md",
+          "changed": true
+        }
+      ]
+    },
+    {
+      "checkpoint_remote_dir": "runs/stage2train_20260408_095122_stage2_qwen3_8b_lora/checkpoints/final",
+      "files": [
+        {
+          "path": "/tmp/hf_patch_run_metadata_uxnza81j/runs/stage2train_20260408_095122_stage2_qwen3_8b_lora/checkpoints/final/adapter_config.json",
+          "old_base_model_name_or_path": "/content/post-Train-proj/runs/_hf_cache/models/Qwen3-8B",
+          "new_base_model_name_or_path": "Qwen/Qwen3-8B",
+          "changed": true
+        },
+        {
+          "path": "/tmp/hf_patch_run_metadata_uxnza81j/runs/stage2train_20260408_095122_stage2_qwen3_8b_lora/checkpoints/final/README.md",
+          "changed": true
+        }
+      ]
+    }
+  ],
+  "final_repo_staged_files": [
+    {
+      "source_repo": "yyyyFan/final_proj",
+      "source_path": "runs/stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500/checkpoints/best/adapter_model.safetensors",
+      "staged_path": "/tmp/hf_final_adapter_publish_ystla7gg/final_adapter/adapter_model.safetensors",
+      "size_bytes": 87361592
+    },
+    {
+      "source_repo": "yyyyFan/final_proj",
+      "source_path": "runs/stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500/checkpoints/best/tokenizer.json",
+      "staged_path": "/tmp/hf_final_adapter_publish_ystla7gg/final_adapter/tokenizer.json",
+      "size_bytes": 11422924
+    },
+    {
+      "source_repo": "yyyyFan/final_proj",
+      "source_path": "runs/stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500/checkpoints/best/adapter_config.json",
+      "staged_path": "/tmp/hf_final_adapter_publish_ystla7gg/final_adapter/adapter_config.json",
+      "size_bytes": 1181
+    },
+    {
+      "source_repo": "yyyyFan/final_proj",
+      "source_path": "runs/stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500/checkpoints/best/tokenizer_config.json",
+      "staged_path": "/tmp/hf_final_adapter_publish_ystla7gg/final_adapter/tokenizer_config.json",
+      "size_bytes": 403
+    },
+    {
+      "source_repo": "yyyyFan/final_proj",
+      "source_path": "runs/stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500/checkpoints/best/chat_template.jinja",
+      "staged_path": "/tmp/hf_final_adapter_publish_ystla7gg/final_adapter/chat_template.jinja",
+      "size_bytes": 4168
+    },
+    {
+      "source_repo": "yyyyFan/final_proj",
+      "source_path": "runs/stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500/checkpoints/best/README.md",
+      "staged_path": "/tmp/hf_final_adapter_publish_ystla7gg/final_adapter/README.md",
+      "size_bytes": 5203
+    }
+  ],
+  "final_repo_publish": {
+    "repo_id": "yyyyFan/final_proj-stage2-best-lr1e4-r16",
+    "revision": "main",
+    "uploaded_files": [
+      "README.md",
+      "adapter_config.json",
+      "adapter_model.safetensors",
+      "chat_template.jinja",
+      "tokenizer.json",
+      "tokenizer_config.json"
+    ],
+    "staging_dir": "/tmp/hf_final_adapter_publish_ystla7gg/final_adapter",
+    "dry_run": false
+  },
+  "skipped_large_repo_migrations": [
+    "yyyyFan/final_proj-stage2-stage2train_20260408_095122_stage2_qwen3_8b_lora-best-merged-bf16",
+    "yyyyFan/final_proj-stage2-stage2train_20260408_095122_stage2_qwen3_8b_lora-best-merged-4bit"
+  ]
+}

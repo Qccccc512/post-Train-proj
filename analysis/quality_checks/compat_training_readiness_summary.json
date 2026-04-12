@@ -1,0 +1,454 @@
+{
+  "tokenizer_source": "datasets/raw/step35_partial/tokenizers/qwen3",
+  "synthetic_think_mask": {
+    "rendered_preview": "<|im_start|>user\nPlease help.<|im_end|>\n<|im_start|>assistant\n<think>\nsecret planning\n</think>\n\nVisible answer.<|im_end|>\n",
+    "think_content_all_masked": true,
+    "think_tag_supervised": true,
+    "answer_supervised": true,
+    "seq_len": 23,
+    "supervised_tokens": 11,
+    "probe_method": "offset_span_on_rendered_chat"
+  },
+  "datasets": {
+    "hermes": {
+      "row_count": 42076,
+      "sample_count": 10,
+      "checked": [
+        {
+          "index": 24338,
+          "terminal_role": "assistant",
+          "assistant_turns": 4,
+          "seq_len": 725,
+          "supervised_tokens": 158,
+          "has_tool_turn": true
+        },
+        {
+          "index": 35182,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 1416,
+          "supervised_tokens": 121,
+          "has_tool_turn": false
+        },
+        {
+          "index": 29253,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 1140,
+          "supervised_tokens": 99,
+          "has_tool_turn": false
+        },
+        {
+          "index": 33306,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 855,
+          "supervised_tokens": 121,
+          "has_tool_turn": false
+        },
+        {
+          "index": 6136,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 1052,
+          "supervised_tokens": 59,
+          "has_tool_turn": false
+        },
+        {
+          "index": 30557,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 677,
+          "supervised_tokens": 68,
+          "has_tool_turn": false
+        },
+        {
+          "index": 6574,
+          "terminal_role": "assistant",
+          "assistant_turns": 4,
+          "seq_len": 1441,
+          "supervised_tokens": 190,
+          "has_tool_turn": true
+        },
+        {
+          "index": 988,
+          "terminal_role": "assistant",
+          "assistant_turns": 4,
+          "seq_len": 747,
+          "supervised_tokens": 229,
+          "has_tool_turn": true
+        },
+        {
+          "index": 39713,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 1261,
+          "supervised_tokens": 76,
+          "has_tool_turn": false
+        },
+        {
+          "index": 8243,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 867,
+          "supervised_tokens": 81,
+          "has_tool_turn": false
+        }
+      ],
+      "failures": [],
+      "all_passed": true
+    },
+    "xlam": {
+      "row_count": 60000,
+      "sample_count": 10,
+      "checked": [
+        {
+          "index": 24413,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 624,
+          "supervised_tokens": 24,
+          "has_tool_turn": false
+        },
+        {
+          "index": 10993,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 259,
+          "supervised_tokens": 39,
+          "has_tool_turn": false
+        },
+        {
+          "index": 2792,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 530,
+          "supervised_tokens": 49,
+          "has_tool_turn": false
+        },
+        {
+          "index": 59781,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 303,
+          "supervised_tokens": 32,
+          "has_tool_turn": false
+        },
+        {
+          "index": 43830,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 372,
+          "supervised_tokens": 48,
+          "has_tool_turn": false
+        },
+        {
+          "index": 41263,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 534,
+          "supervised_tokens": 57,
+          "has_tool_turn": false
+        },
+        {
+          "index": 37712,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 267,
+          "supervised_tokens": 65,
+          "has_tool_turn": false
+        },
+        {
+          "index": 7385,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 404,
+          "supervised_tokens": 26,
+          "has_tool_turn": false
+        },
+        {
+          "index": 19697,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 940,
+          "supervised_tokens": 46,
+          "has_tool_turn": false
+        },
+        {
+          "index": 52295,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 262,
+          "supervised_tokens": 34,
+          "has_tool_turn": false
+        }
+      ],
+      "failures": [],
+      "all_passed": true
+    },
+    "step20k": {
+      "row_count": 20000,
+      "sample_count": 10,
+      "checked": [
+        {
+          "index": 4569,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 2666,
+          "supervised_tokens": 385,
+          "has_tool_turn": false
+        },
+        {
+          "index": 8671,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 996,
+          "supervised_tokens": 684,
+          "has_tool_turn": false
+        },
+        {
+          "index": 16098,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 3328,
+          "supervised_tokens": 2954,
+          "has_tool_turn": false
+        },
+        {
+          "index": 10260,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 3276,
+          "supervised_tokens": 174,
+          "has_tool_turn": false
+        },
+        {
+          "index": 9617,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 531,
+          "supervised_tokens": 65,
+          "has_tool_turn": false
+        },
+        {
+          "index": 5345,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 2547,
+          "supervised_tokens": 1150,
+          "has_tool_turn": false
+        },
+        {
+          "index": 1273,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 2448,
+          "supervised_tokens": 13,
+          "has_tool_turn": false
+        },
+        {
+          "index": 16672,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 886,
+          "supervised_tokens": 588,
+          "has_tool_turn": false
+        },
+        {
+          "index": 3838,
+          "terminal_role": "assistant",
+          "assistant_turns": 2,
+          "seq_len": 4050,
+          "supervised_tokens": 3215,
+          "has_tool_turn": false
+        },
+        {
+          "index": 13709,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 1740,
+          "supervised_tokens": 1332,
+          "has_tool_turn": false
+        }
+      ],
+      "failures": [],
+      "all_passed": true
+    },
+    "qwen35_train": {
+      "row_count": 90544,
+      "sample_count": 10,
+      "checked": [
+        {
+          "index": 80022,
+          "terminal_role": "assistant",
+          "assistant_turns": 2,
+          "seq_len": 1117,
+          "supervised_tokens": 113,
+          "has_tool_turn": false
+        },
+        {
+          "index": 78507,
+          "terminal_role": "assistant",
+          "assistant_turns": 11,
+          "seq_len": 2983,
+          "supervised_tokens": 2003,
+          "has_tool_turn": false
+        },
+        {
+          "index": 78367,
+          "terminal_role": "assistant",
+          "assistant_turns": 14,
+          "seq_len": 2558,
+          "supervised_tokens": 1583,
+          "has_tool_turn": false
+        },
+        {
+          "index": 48666,
+          "terminal_role": "assistant",
+          "assistant_turns": 4,
+          "seq_len": 1021,
+          "supervised_tokens": 248,
+          "has_tool_turn": false
+        },
+        {
+          "index": 8856,
+          "terminal_role": "assistant",
+          "assistant_turns": 17,
+          "seq_len": 3181,
+          "supervised_tokens": 2216,
+          "has_tool_turn": false
+        },
+        {
+          "index": 49207,
+          "terminal_role": "assistant",
+          "assistant_turns": 29,
+          "seq_len": 7584,
+          "supervised_tokens": 6648,
+          "has_tool_turn": false
+        },
+        {
+          "index": 24398,
+          "terminal_role": "assistant",
+          "assistant_turns": 14,
+          "seq_len": 3409,
+          "supervised_tokens": 2828,
+          "has_tool_turn": false
+        },
+        {
+          "index": 12222,
+          "terminal_role": "assistant",
+          "assistant_turns": 8,
+          "seq_len": 1737,
+          "supervised_tokens": 968,
+          "has_tool_turn": false
+        },
+        {
+          "index": 5497,
+          "terminal_role": "assistant",
+          "assistant_turns": 14,
+          "seq_len": 2655,
+          "supervised_tokens": 2064,
+          "has_tool_turn": false
+        },
+        {
+          "index": 64671,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 885,
+          "supervised_tokens": 47,
+          "has_tool_turn": false
+        }
+      ],
+      "failures": [],
+      "all_passed": true
+    },
+    "glaive": {
+      "row_count": 110962,
+      "sample_count": 10,
+      "checked": [
+        {
+          "index": 90074,
+          "terminal_role": "assistant",
+          "assistant_turns": 2,
+          "seq_len": 899,
+          "supervised_tokens": 728,
+          "has_tool_turn": false
+        },
+        {
+          "index": 12049,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 221,
+          "supervised_tokens": 69,
+          "has_tool_turn": false
+        },
+        {
+          "index": 29806,
+          "terminal_role": "assistant",
+          "assistant_turns": 1,
+          "seq_len": 500,
+          "supervised_tokens": 53,
+          "has_tool_turn": false
+        },
+        {
+          "index": 77041,
+          "terminal_role": "assistant",
+          "assistant_turns": 4,
+          "seq_len": 646,
+          "supervised_tokens": 225,
+          "has_tool_turn": true
+        },
+        {
+          "index": 6783,
+          "terminal_role": "assistant",
+          "assistant_turns": 4,
+          "seq_len": 359,
+          "supervised_tokens": 147,
+          "has_tool_turn": true
+        },
+        {
+          "index": 42086,
+          "terminal_role": "assistant",
+          "assistant_turns": 3,
+          "seq_len": 247,
+          "supervised_tokens": 94,
+          "has_tool_turn": true
+        },
+        {
+          "index": 39550,
+          "terminal_role": "assistant",
+          "assistant_turns": 2,
+          "seq_len": 466,
+          "supervised_tokens": 376,
+          "has_tool_turn": false
+        },
+        {
+          "index": 63271,
+          "terminal_role": "assistant",
+          "assistant_turns": 5,
+          "seq_len": 637,
+          "supervised_tokens": 545,
+          "has_tool_turn": false
+        },
+        {
+          "index": 36970,
+          "terminal_role": "assistant",
+          "assistant_turns": 2,
+          "seq_len": 333,
+          "supervised_tokens": 72,
+          "has_tool_turn": true
+        },
+        {
+          "index": 50385,
+          "terminal_role": "assistant",
+          "assistant_turns": 4,
+          "seq_len": 1047,
+          "supervised_tokens": 844,
+          "has_tool_turn": false
+        }
+      ],
+      "failures": [],
+      "all_passed": true
+    }
+  }
+}

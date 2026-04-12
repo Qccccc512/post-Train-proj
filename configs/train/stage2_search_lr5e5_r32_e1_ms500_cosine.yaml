@@ -1,0 +1,48 @@
+phase: stage2search
+model_name: Qwen/Qwen3-8B
+trust_remote_code: true
+bf16: true
+load_in_4bit: false
+load_in_16bit: true
+full_finetuning: false
+max_seq_length: 8192
+learning_rate: 5.0e-5
+num_train_epochs: 1
+max_steps: 500
+per_device_train_batch_size: 1
+per_device_eval_batch_size: 1
+gradient_accumulation_steps: 16
+warmup_steps: 20
+lr_scheduler_type: cosine
+weight_decay: 0.01
+max_grad_norm: 1.0
+gradient_checkpointing: false
+packing: false
+dataloader_num_workers: 16
+logging_steps: 10
+eval_strategy: steps
+eval_steps: 50
+save_strategy: steps
+save_steps: 50
+save_total_limit: 3
+load_best_model_at_end: true
+metric_for_best_model: eval_loss
+greater_is_better: false
+save_safetensors: true
+optim: adamw_8bit
+dataset_num_proc: 16
+seed: 42
+lora:
+  r: 32
+  alpha: 64
+  dropout: 0.0
+  bias: none
+  use_rslora: false
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj

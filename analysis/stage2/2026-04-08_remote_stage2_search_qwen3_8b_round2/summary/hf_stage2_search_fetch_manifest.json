@@ -1,0 +1,120 @@
+{
+  "timestamp": "2026-04-08 08:43:06",
+  "repo_id": "yyyyFan/final_proj",
+  "repo_type": "model",
+  "revision": "main",
+  "analysis_dir": "analysis/stage2/2026-04-08_remote_stage2_search_qwen3_8b_round2",
+  "allowed_prefixes": [
+    "logs/",
+    "meta/",
+    "configs/"
+  ],
+  "run_names": [
+    "stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500",
+    "stage2search_20260407_173210_stage2_search_lr2e4_r16_e1_ms500",
+    "stage2search_20260407_173210_stage2_search_lr5e5_r16_e1_ms500_cosine",
+    "stage2search_20260407_173210_stage2_search_lr5e5_r32_e1_ms500_cosine"
+  ],
+  "runs": {
+    "stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500": {
+      "remote_files_total": 31,
+      "downloaded_files": 19,
+      "downloaded_relative_paths": [
+        "configs/dataset_config_resolved.json",
+        "configs/dataset_config_resolved.yaml",
+        "configs/hf_config_resolved.json",
+        "configs/hf_config_resolved.yaml",
+        "configs/train_config_resolved.json",
+        "configs/train_config_resolved.yaml",
+        "logs/console.log",
+        "logs/eval_metrics.json",
+        "logs/eval_metrics.jsonl",
+        "logs/train_metrics.jsonl",
+        "logs/train_result_metrics.json",
+        "logs/trainer_state.json",
+        "meta/dataset_manifest.json",
+        "meta/env_info.json",
+        "meta/preprocess_diagnostics.json",
+        "meta/preprocess_summary.json",
+        "meta/run_summary.md",
+        "meta/sample_indices.json",
+        "meta/split_summary.json"
+      ]
+    },
+    "stage2search_20260407_173210_stage2_search_lr2e4_r16_e1_ms500": {
+      "remote_files_total": 31,
+      "downloaded_files": 19,
+      "downloaded_relative_paths": [
+        "configs/dataset_config_resolved.json",
+        "configs/dataset_config_resolved.yaml",
+        "configs/hf_config_resolved.json",
+        "configs/hf_config_resolved.yaml",
+        "configs/train_config_resolved.json",
+        "configs/train_config_resolved.yaml",
+        "logs/console.log",
+        "logs/eval_metrics.json",
+        "logs/eval_metrics.jsonl",
+        "logs/train_metrics.jsonl",
+        "logs/train_result_metrics.json",
+        "logs/trainer_state.json",
+        "meta/dataset_manifest.json",
+        "meta/env_info.json",
+        "meta/preprocess_diagnostics.json",
+        "meta/preprocess_summary.json",
+        "meta/run_summary.md",
+        "meta/sample_indices.json",
+        "meta/split_summary.json"
+      ]
+    },
+    "stage2search_20260407_173210_stage2_search_lr5e5_r16_e1_ms500_cosine": {
+      "remote_files_total": 31,
+      "downloaded_files": 19,
+      "downloaded_relative_paths": [
+        "configs/dataset_config_resolved.json",
+        "configs/dataset_config_resolved.yaml",
+        "configs/hf_config_resolved.json",
+        "configs/hf_config_resolved.yaml",
+        "configs/train_config_resolved.json",
+        "configs/train_config_resolved.yaml",
+        "logs/console.log",
+        "logs/eval_metrics.json",
+        "logs/eval_metrics.jsonl",
+        "logs/train_metrics.jsonl",
+        "logs/train_result_metrics.json",
+        "logs/trainer_state.json",
+        "meta/dataset_manifest.json",
+        "meta/env_info.json",
+        "meta/preprocess_diagnostics.json",
+        "meta/preprocess_summary.json",
+        "meta/run_summary.md",
+        "meta/sample_indices.json",
+        "meta/split_summary.json"
+      ]
+    },
+    "stage2search_20260407_173210_stage2_search_lr5e5_r32_e1_ms500_cosine": {
+      "remote_files_total": 31,
+      "downloaded_files": 19,
+      "downloaded_relative_paths": [
+        "configs/dataset_config_resolved.json",
+        "configs/dataset_config_resolved.yaml",
+        "configs/hf_config_resolved.json",
+        "configs/hf_config_resolved.yaml",
+        "configs/train_config_resolved.json",
+        "configs/train_config_resolved.yaml",
+        "logs/console.log",
+        "logs/eval_metrics.json",
+        "logs/eval_metrics.jsonl",
+        "logs/train_metrics.jsonl",
+        "logs/train_result_metrics.json",
+        "logs/trainer_state.json",
+        "meta/dataset_manifest.json",
+        "meta/env_info.json",
+        "meta/preprocess_diagnostics.json",
+        "meta/preprocess_summary.json",
+        "meta/run_summary.md",
+        "meta/sample_indices.json",
+        "meta/split_summary.json"
+      ]
+    }
+  }
+}

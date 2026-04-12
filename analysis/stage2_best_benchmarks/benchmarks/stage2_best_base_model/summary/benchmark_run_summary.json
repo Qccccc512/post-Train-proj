@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-08 04:30:16",
+  "run_slug": "stage2_best_base_model",
+  "suites": [
+    "ceval",
+    "ifeval",
+    "bfcl_v4"
+  ],
+  "base_model": "Qwen/Qwen3-8B",
+  "adapter": null,
+  "server_base_url": "http://127.0.0.1:8010/v1",
+  "artifacts_root": "analysis/stage2_best_benchmarks/benchmarks/stage2_best_base_model"
+}

@@ -1,0 +1,15 @@
+{
+  "lm_eval": {
+    "repo_url": "https://github.com/EleutherAI/lm-evaluation-harness.git",
+    "ref": "v0.4.11",
+    "commit": "27988a293647d5853e48edea291640b4af54740c",
+    "local_dir": "benchmark/lm-evaluation-harness"
+  },
+  "bfcl": {
+    "repo_url": "https://github.com/ShishirPatil/gorilla.git",
+    "ref": "f7cf735",
+    "commit": "f7cf735",
+    "local_dir": "benchmark/gorilla",
+    "workdir_subpath": "berkeley-function-call-leaderboard"
+  }
+}

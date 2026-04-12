@@ -1,0 +1,32 @@
+output_base_dir: analysis/stage2_final_benchmarks/stage2train_20260408_095122_stage2_qwen3_8b_lora_best
+max_samples: 999999
+base_model: Qwen/Qwen3-8B
+concurrent: 128
+server:
+  host: 127.0.0.1
+  port: 8010
+  vllm_env_dir: 
+  tensor_parallel_size: 1
+  gpu_memory_utilization: 0.95
+  max_model_len: 32768
+  max_num_seqs: 256
+  dtype: bfloat16
+  max_lora_rank: 64
+  repetition_penalty: 1.1
+lm_eval:
+  model: local-completions
+  tokenizer_backend: huggingface
+  batch_size: 256
+  suites:
+    ceval:
+      task: ceval-valid
+      limit: 999999
+    ifeval:
+      task: ifeval
+      max_gen_toks: 4096
+      limit: 999999
+bfcl:
+  model_name: Qwen/Qwen3-8B
+  max_samples: 999999
+  max_output_tokens: 4096
+  test_categories: []

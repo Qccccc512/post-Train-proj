@@ -1,0 +1,23 @@
+{
+  "cwd": "/content/post-Train-proj/benchmark/gorilla/berkeley-function-call-leaderboard",
+  "command": [
+    "/root/miniconda/envs/post-train-benchmark/bin/python",
+    "/content/post-Train-proj/scripts/run_bfcl_entry.py",
+    "generate",
+    "--model",
+    "Qwen/Qwen3-8B",
+    "--run-ids",
+    "--skip-server-setup",
+    "--num-threads",
+    "4",
+    "--max-output-tokens",
+    "4096",
+    "--repetition-penalty",
+    "1.1"
+  ],
+  "shell_command": "/root/miniconda/envs/post-train-benchmark/bin/python /content/post-Train-proj/scripts/run_bfcl_entry.py generate --model Qwen/Qwen3-8B --run-ids --skip-server-setup --num-threads 4 --max-output-tokens 4096 --repetition-penalty 1.1",
+  "env_overrides": {
+    "PYTHONPATH": "/content/post-Train-proj/benchmark/gorilla/berkeley-function-call-leaderboard:",
+    "BFCL_PROJECT_ROOT": "/content/post-Train-proj/analysis/stage1/benchmarks/stage1_group_G/bfcl_v4/project_root"
+  }
+}

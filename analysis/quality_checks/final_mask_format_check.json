@@ -1,0 +1,161 @@
+{
+  "datasets": {
+    "hermes": {
+      "sample_count": 20,
+      "nonempty_supervision_count": 20,
+      "assistant_supervision_count": 20,
+      "rows_with_think": 20,
+      "rows_with_all_think_spans_masked": 20,
+      "min_supervised_tokens": 43,
+      "max_supervised_tokens": 719,
+      "avg_supervised_tokens": 180.95
+    },
+    "xlam": {
+      "sample_count": 20,
+      "nonempty_supervision_count": 20,
+      "assistant_supervision_count": 20,
+      "rows_with_think": 20,
+      "rows_with_all_think_spans_masked": 20,
+      "min_supervised_tokens": 23,
+      "max_supervised_tokens": 137,
+      "avg_supervised_tokens": 44.25
+    },
+    "step20k": {
+      "sample_count": 20,
+      "nonempty_supervision_count": 20,
+      "assistant_supervision_count": 20,
+      "rows_with_think": 18,
+      "rows_with_all_think_spans_masked": 18,
+      "min_supervised_tokens": 4,
+      "max_supervised_tokens": 1980,
+      "avg_supervised_tokens": 893.7
+    },
+    "qwen35_train": {
+      "sample_count": 20,
+      "nonempty_supervision_count": 20,
+      "assistant_supervision_count": 20,
+      "rows_with_think": 20,
+      "rows_with_all_think_spans_masked": 20,
+      "min_supervised_tokens": 50,
+      "max_supervised_tokens": 1175,
+      "avg_supervised_tokens": 555.45
+    },
+    "qwen35_test": {
+      "sample_count": 20,
+      "nonempty_supervision_count": 20,
+      "assistant_supervision_count": 20,
+      "rows_with_think": 20,
+      "rows_with_all_think_spans_masked": 20,
+      "min_supervised_tokens": 33,
+      "max_supervised_tokens": 1247,
+      "avg_supervised_tokens": 600.75
+    },
+    "glaive": {
+      "sample_count": 20,
+      "nonempty_supervision_count": 20,
+      "assistant_supervision_count": 20,
+      "rows_with_think": 20,
+      "rows_with_all_think_spans_masked": 20,
+      "min_supervised_tokens": 37,
+      "max_supervised_tokens": 571,
+      "avg_supervised_tokens": 196.8
+    }
+  },
+  "groups": {
+    "A": {
+      "sample_count": 20,
+      "nonempty_supervision_count": 20,
+      "assistant_supervision_count": 20,
+      "rows_with_think": 20,
+      "rows_with_all_think_spans_masked": 20,
+      "min_supervised_tokens": 60,
+      "max_supervised_tokens": 801,
+      "avg_supervised_tokens": 207.5,
+      "recipe_components": {
+        "hermes": 500
+      }
+    },
+    "B": {
+      "sample_count": 20,
+      "nonempty_supervision_count": 20,
+      "assistant_supervision_count": 20,
+      "rows_with_think": 20,
+      "rows_with_all_think_spans_masked": 20,
+      "min_supervised_tokens": 39,
+      "max_supervised_tokens": 506,
+      "avg_supervised_tokens": 186.3,
+      "recipe_components": {
+        "hermes": 438,
+        "xlam": 62
+      }
+    },
+    "C": {
+      "sample_count": 20,
+      "nonempty_supervision_count": 20,
+      "assistant_supervision_count": 20,
+      "rows_with_think": 20,
+      "rows_with_all_think_spans_masked": 20,
+      "min_supervised_tokens": 35,
+      "max_supervised_tokens": 1811,
+      "avg_supervised_tokens": 339.5,
+      "recipe_components": {
+        "hermes": 350,
+        "xlam": 50,
+        "step20k": 100
+      }
+    },
+    "D": {
+      "sample_count": 20,
+      "nonempty_supervision_count": 20,
+      "assistant_supervision_count": 20,
+      "rows_with_think": 19,
+      "rows_with_all_think_spans_masked": 19,
+      "min_supervised_tokens": 53,
+      "max_supervised_tokens": 671,
+      "avg_supervised_tokens": 181.5,
+      "recipe_components": {
+        "hermes": 400,
+        "step20k": 100
+      }
+    },
+    "E": {
+      "sample_count": 20,
+      "nonempty_supervision_count": 20,
+      "assistant_supervision_count": 20,
+      "rows_with_think": 20,
+      "rows_with_all_think_spans_masked": 20,
+      "min_supervised_tokens": 23,
+      "max_supervised_tokens": 79,
+      "avg_supervised_tokens": 43.95,
+      "recipe_components": {
+        "xlam": 500
+      }
+    },
+    "F": {
+      "sample_count": 20,
+      "nonempty_supervision_count": 20,
+      "assistant_supervision_count": 20,
+      "rows_with_think": 20,
+      "rows_with_all_think_spans_masked": 20,
+      "min_supervised_tokens": 51,
+      "max_supervised_tokens": 1226,
+      "avg_supervised_tokens": 454.95,
+      "recipe_components": {
+        "qwen35_train": 500
+      }
+    },
+    "G": {
+      "sample_count": 20,
+      "nonempty_supervision_count": 20,
+      "assistant_supervision_count": 20,
+      "rows_with_think": 20,
+      "rows_with_all_think_spans_masked": 20,
+      "min_supervised_tokens": 46,
+      "max_supervised_tokens": 948,
+      "avg_supervised_tokens": 323.5,
+      "recipe_components": {
+        "glaive": 500
+      }
+    }
+  }
+}

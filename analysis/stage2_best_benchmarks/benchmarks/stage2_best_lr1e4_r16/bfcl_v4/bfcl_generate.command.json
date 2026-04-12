@@ -1,0 +1,23 @@
+{
+  "cwd": "/content/post-Train-proj/benchmark/gorilla/berkeley-function-call-leaderboard",
+  "command": [
+    "/usr/bin/python3",
+    "/content/post-Train-proj/scripts/run_bfcl_entry.py",
+    "generate",
+    "--model",
+    "Qwen/Qwen3-8B",
+    "--run-ids",
+    "--skip-server-setup",
+    "--num-threads",
+    "256",
+    "--max-output-tokens",
+    "4096",
+    "--repetition-penalty",
+    "1.1"
+  ],
+  "shell_command": "/usr/bin/python3 /content/post-Train-proj/scripts/run_bfcl_entry.py generate --model Qwen/Qwen3-8B --run-ids --skip-server-setup --num-threads 256 --max-output-tokens 4096 --repetition-penalty 1.1",
+  "env_overrides": {
+    "PYTHONPATH": "/content/post-Train-proj/benchmark/gorilla/berkeley-function-call-leaderboard:scripts",
+    "BFCL_PROJECT_ROOT": "/content/post-Train-proj/analysis/stage2_best_benchmarks/benchmarks/stage2_best_lr1e4_r16/bfcl_v4/project_root"
+  }
+}

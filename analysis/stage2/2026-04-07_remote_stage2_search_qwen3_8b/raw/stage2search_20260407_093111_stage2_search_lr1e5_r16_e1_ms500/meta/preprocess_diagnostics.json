@@ -1,0 +1,14 @@
+{
+  "train": {
+    "raw_rows": 9500,
+    "kept_rows": 9500,
+    "skipped_rows": 0,
+    "skipped_examples": []
+  },
+  "validation": {
+    "raw_rows": 500,
+    "kept_rows": 500,
+    "skipped_rows": 0,
+    "skipped_examples": []
+  }
+}

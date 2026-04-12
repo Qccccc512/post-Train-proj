@@ -1,0 +1,16 @@
+{
+  "cwd": "/content/post-Train-proj/benchmark/gorilla/berkeley-function-call-leaderboard",
+  "command": [
+    "/root/miniconda/envs/post-train-benchmark/bin/python",
+    "/content/post-Train-proj/scripts/run_bfcl_entry.py",
+    "evaluate",
+    "--model",
+    "Qwen/Qwen3-8B",
+    "--partial-eval"
+  ],
+  "shell_command": "/root/miniconda/envs/post-train-benchmark/bin/python /content/post-Train-proj/scripts/run_bfcl_entry.py evaluate --model Qwen/Qwen3-8B --partial-eval",
+  "env_overrides": {
+    "PYTHONPATH": "/content/post-Train-proj/benchmark/gorilla/berkeley-function-call-leaderboard:",
+    "BFCL_PROJECT_ROOT": "/content/post-Train-proj/analysis/stage1/benchmarks/stage1_group_H_rerun/bfcl_v4/project_root"
+  }
+}

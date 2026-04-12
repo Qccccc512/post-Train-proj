@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-08 07:30:09",
+  "run_slug": "stage2_best_lr1e4_r16",
+  "suites": [
+    "ceval",
+    "ifeval",
+    "bfcl_v4"
+  ],
+  "base_model": "Qwen/Qwen3-8B",
+  "adapter": "runs/stage2search_20260407_173210_stage2_search_lr1e4_r16_e1_ms500/checkpoints/best",
+  "server_base_url": "http://127.0.0.1:8010/v1",
+  "artifacts_root": "analysis/stage2_best_benchmarks/benchmarks/stage2_best_lr1e4_r16"
+}

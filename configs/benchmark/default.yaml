@@ -1,0 +1,47 @@
+# 默认评测配置 - 针对 A100-40G 服务器 + Qwen3-8B 模型
+# 筛选型评测：每个测试项目使用 50 个样本
+output_base_dir: analysis/stage1
+max_samples: 50
+# 默认基座模型（阶段一评测主要针对 8B）
+base_model: Qwen/Qwen3-8B
+# 评测客户端并发请求数（与 vLLM max_num_seqs 保持一致或略小）
+concurrent: 4
+server:
+  host: 127.0.0.1
+  port: 8010
+  vllm_env_dir: post-train-benchmark
+  tensor_parallel_size: 1
+  gpu_memory_utilization: 0.90
+  # 增加到 32768 以支持 BFCL 多轮对话长上下文测试用例
+  # 原 8192 会导致某些测试用例（input 6145+ tokens）失败
+  max_model_len: 32768
+  # 降低并发数以平衡显存占用（从 8 降到 4）
+  max_num_seqs: 4
+  # bfloat16 精度 - A100 支持 bfloat16
+  dtype: bfloat16
+  max_lora_rank: 64
+  # Qwen3 思考模型在 completion API 下容易重复生成，需要添加 repetition_penalty
+  # 推荐值 1.1-1.2，过大会影响生成质量
+  repetition_penalty: 1.1
+lm_eval:
+  model: local-completions
+  tokenizer_backend: huggingface
+  # batch_size 对 local-completions API 无效，实际并发由 concurrent 参数控制
+  batch_size: 4
+  suites:
+    ceval:
+      task: ceval-valid
+      limit: 50
+    ifeval:
+      task: ifeval
+      max_gen_toks: 4096
+      limit: 50
+bfcl:
+  # BFCL 结果文件中的模型标识名（与 base_model 对应）
+  model_name: Qwen/Qwen3-8B
+  max_samples: 50
+  # num_threads 已废弃，实际并发由顶层 concurrent 参数统一控制
+  num_threads: 4
+  # 放宽 max_output_tokens 以避免截断影响正确性
+  max_output_tokens: 4096
+  test_categories: []

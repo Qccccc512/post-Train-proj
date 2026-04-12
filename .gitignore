@@ -1,0 +1,37 @@
+# Secrets and local environment files
+keys.json
+.env
+.env.*
+*.env
+
+# Python, notebooks, editors, and OS noise
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+*.swp
+*.swo
+*.log
+.DS_Store
+
+# Local caches and virtual environments
+.cache/
+.hf_cache/
+.venv/
+venv/
+ENV/
+env/
+unsloth_compiled_cache/
+.claude/
+.codex/
+
+# Generated datasets, runs, and work products
+datasets/
+runs/
+logs/
+log/
+outputs/
+checkpoints/
+
+# Small bits of generated analysis clutter
+analysis/**/.file_locks/
+analysis/**/raw/*/meta/split_summary.json

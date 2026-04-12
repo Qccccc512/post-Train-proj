@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-04-07 13:51:53",
+  "run_name": "stage2search_20260407_093111_stage2_search_lr2e5_r8_e1_ms500",
+  "phase": "stage2search",
+  "group": "S2",
+  "recipe": {
+    "description": "Frozen Stage2 search mixture (Hermes 7000 + Step tool-call 2000 + Step general 1000)",
+    "total_samples": 10000,
+    "components": {
+      "stage2_search_10k": 10000
+    }
+  },
+  "source_dir": "/content/post-Train-proj/runs/_hf_cache/datasets/v4",
+  "train_path": "/content/post-Train-proj/runs/stage2search_20260407_093111_stage2_search_lr2e5_r8_e1_ms500/dataset/train.jsonl",
+  "val_path": "/content/post-Train-proj/runs/stage2search_20260407_093111_stage2_search_lr2e5_r8_e1_ms500/dataset/val.jsonl",
+  "train_count": 9500,
+  "val_count": 500,
+  "diagnostic_sets": []
+}

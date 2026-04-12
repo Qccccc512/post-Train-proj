@@ -1,0 +1,25 @@
+{
+  "version": "v4",
+  "source_mode": "hf",
+  "local_fallback_dir": "datasets/processed/v4",
+  "split": {
+    "train_ratio": 0.95
+  },
+  "seed": 42,
+  "default_phase": "stage2search",
+  "default_group": "S2",
+  "datasets": {
+    "stage2_search_10k": {
+      "filename": "stage2_search_10k_messages.json"
+    }
+  },
+  "recipes": {
+    "S2": {
+      "description": "Frozen Stage2 search mixture (Hermes 7000 + Step tool-call 2000 + Step general 1000)",
+      "total_samples": 10000,
+      "components": {
+        "stage2_search_10k": 10000
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "cwd": "/content/post-Train-proj/benchmark/lm-evaluation-harness",
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "lm_eval",
+    "--model",
+    "local-completions",
+    "--model_args",
+    "model=Qwen/Qwen3-8B,base_url=http://127.0.0.1:8010/v1/completions,tokenizer=/content/post-Train-proj/runs/_benchmark_runtime/model_cache/base_models/yyyyFan-final_proj-stage2-stage2train_20260408_095122_stage2_qwen3_8b_lora-best-merged-bf16,tokenizer_backend=huggingface,tokenized_requests=false,num_concurrent=128,max_retries=3,verify_certificate=false",
+    "--tasks",
+    "ifeval",
+    "--output_path",
+    "/content/post-Train-proj/analysis/stage2_final_benchmarks/stage2train_20260408_095122_stage2_qwen3_8b_lora_best/benchmarks/stage2_final_merged_bf16_model/ifeval",
+    "--log_samples",
+    "--gen_kwargs",
+    "max_gen_toks=4096,repetition_penalty=1.1"
+  ],
+  "shell_command": "/usr/bin/python3 -m lm_eval --model local-completions --model_args model=Qwen/Qwen3-8B,base_url=http://127.0.0.1:8010/v1/completions,tokenizer=/content/post-Train-proj/runs/_benchmark_runtime/model_cache/base_models/yyyyFan-final_proj-stage2-stage2train_20260408_095122_stage2_qwen3_8b_lora-best-merged-bf16,tokenizer_backend=huggingface,tokenized_requests=false,num_concurrent=128,max_retries=3,verify_certificate=false --tasks ifeval --output_path /content/post-Train-proj/analysis/stage2_final_benchmarks/stage2train_20260408_095122_stage2_qwen3_8b_lora_best/benchmarks/stage2_final_merged_bf16_model/ifeval --log_samples --gen_kwargs max_gen_toks=4096,repetition_penalty=1.1",
+  "env_overrides": {
+    "PYTHONPATH": "/content/post-Train-proj/benchmark/lm-evaluation-harness:scripts:/env/python"
+  }
+}

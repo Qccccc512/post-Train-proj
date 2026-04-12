@@ -1,0 +1,22 @@
+# Stage 2 Final Benchmark Context
+
+- run_name: `stage2train_20260408_095122_stage2_qwen3_8b_lora`
+- checkpoint_kind: `best`
+- adapter_path: `/home/fan/workspace/post-Train-proj/runs/stage2train_20260408_095122_stage2_qwen3_8b_lora/checkpoints/best`
+- base_model: `Qwen/Qwen3-8B`
+- benchmark_tag: `stage2train_20260408_095122_stage2_qwen3_8b_lora_best`
+- output_base_dir: `analysis/stage2_final_benchmarks/stage2train_20260408_095122_stage2_qwen3_8b_lora_best`
+- benchmark_config: `analysis/stage2_final_benchmarks/stage2train_20260408_095122_stage2_qwen3_8b_lora_best/generated_benchmark_config.yaml`
+- benchmark_hf_endpoint: ``
+- merged_output_root: `/home/fan/workspace/post-Train-proj/runs/stage2train_20260408_095122_stage2_qwen3_8b_lora/merged_models/best`
+- merged_manifest_path: `/home/fan/workspace/post-Train-proj/runs/stage2train_20260408_095122_stage2_qwen3_8b_lora/merged_models/best/merged_model_exports.json`
+- merged_bf16_local_dir: `/home/fan/workspace/post-Train-proj/runs/stage2train_20260408_095122_stage2_qwen3_8b_lora/merged_models/best/merged_bf16`
+- merged_4bit_local_dir: `/home/fan/workspace/post-Train-proj/runs/stage2train_20260408_095122_stage2_qwen3_8b_lora/merged_models/best/merged_4bit`
+- merged_bf16_benchmark_source: `yyyyFan/final_proj-stage2-stage2train_20260408_095122_stage2_qwen3_8b_lora-best-merged-bf16`
+- merged_4bit_benchmark_source: `yyyyFan/final_proj-stage2-stage2train_20260408_095122_stage2_qwen3_8b_lora-best-merged-4bit`
+- merged_bf16_repo_id: `yyyyFan/final_proj-stage2-stage2train_20260408_095122_stage2_qwen3_8b_lora-best-merged-bf16`
+- merged_4bit_repo_id: `yyyyFan/final_proj-stage2-stage2train_20260408_095122_stage2_qwen3_8b_lora-best-merged-4bit`
+- use_remote_merged_models: `1`
+- upload_merged_models: `1`
+- upload_results: `0`
+- remote_analysis_dir: `analysis/stage2_final_benchmarks/stage2train_20260408_095122_stage2_qwen3_8b_lora_best`

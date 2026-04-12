@@ -1,0 +1,2 @@
+Rank,Model,Non-Live Overall Acc,AST Summary,Simple AST,Python Simple AST,Java Simple AST,JavaScript Simple AST,Multiple AST,Parallel AST,Parallel Multiple AST,Irrelevance Detection
+1,Qwen3-8B (Prompt),13.29%,13.29%,17.67%,22.00%,13.00%,18.00%,11.00%,19.00%,5.50%,92.50%

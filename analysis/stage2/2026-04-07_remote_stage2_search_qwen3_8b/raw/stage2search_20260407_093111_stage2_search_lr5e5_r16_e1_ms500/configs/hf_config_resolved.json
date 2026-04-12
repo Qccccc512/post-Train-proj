@@ -1,0 +1,21 @@
+{
+  "repo_id": "final_proj",
+  "repo_type": "model",
+  "private": true,
+  "revision": "main",
+  "token_env": "HF_TOKEN",
+  "allow_keys_json_fallback": true,
+  "dataset_remote_dir": "datasets/v4",
+  "runs_remote_dir": "runs",
+  "base_model_id": "Qwen/Qwen3-8B",
+  "cache_dir": "runs/_hf_cache",
+  "datasets_local_dir": "runs/_hf_cache/datasets/v4",
+  "models_local_dir": "runs/_hf_cache/models",
+  "upload": {
+    "include_logs": true,
+    "include_configs": true,
+    "include_meta": true,
+    "include_best_checkpoint": true,
+    "include_final_checkpoint": true
+  }
+}

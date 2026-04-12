@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-04-04 08:12:13",
+  "run_name": "2026-04-04_stage1_I_qwen3-8b_lr2e-05_r16_e1_seq8192_pack0_seed42",
+  "phase": "stage1",
+  "group": "I",
+  "recipe": {
+    "description": "Step tool-call + Step general (4:1)",
+    "total_samples": 5000,
+    "components": {
+      "step_toolcall": 4000,
+      "step20k": 1000
+    }
+  },
+  "source_dir": "/content/post-Train-proj/runs/_hf_cache/datasets/v4",
+  "train_path": "/content/post-Train-proj/runs/2026-04-04_stage1_I_qwen3-8b_lr2e-05_r16_e1_seq8192_pack0_seed42/dataset/train.jsonl",
+  "val_path": "/content/post-Train-proj/runs/2026-04-04_stage1_I_qwen3-8b_lr2e-05_r16_e1_seq8192_pack0_seed42/dataset/val.jsonl",
+  "train_count": 4750,
+  "val_count": 250,
+  "diagnostic_sets": []
+}

@@ -1,0 +1,86 @@
+{
+  "version": "v4",
+  "source_mode": "hf",
+  "local_fallback_dir": "formatted dataset/v4",
+  "split": {
+    "train_ratio": 0.95
+  },
+  "seed": 42,
+  "default_phase": "stage1",
+  "default_group": "C",
+  "datasets": {
+    "hermes": {
+      "filename": "hermes_reasoning_tool_use_messages.json"
+    },
+    "xlam": {
+      "filename": "xlam_function_calling_60k_messages.json"
+    },
+    "step20k": {
+      "filename": "step35_clean_general_qwen3lenle8192_candidate_20000_messages.json"
+    },
+    "qwen35_train": {
+      "filename": "qwen3_5_toolcalling_v2_train_messages.json"
+    },
+    "qwen35_test": {
+      "filename": "qwen3_5_toolcalling_v2_test_messages.json"
+    },
+    "glaive": {
+      "filename": "glaive_function_calling_v2_messages.json"
+    }
+  },
+  "recipes": {
+    "A": {
+      "description": "Hermes only",
+      "total_samples": 5000,
+      "components": {
+        "hermes": 5000
+      }
+    },
+    "B": {
+      "description": "Hermes + xLAM",
+      "total_samples": 5000,
+      "components": {
+        "hermes": 4375,
+        "xlam": 625
+      }
+    },
+    "C": {
+      "description": "Hermes + xLAM + Step",
+      "total_samples": 5000,
+      "components": {
+        "hermes": 3500,
+        "xlam": 500,
+        "step20k": 1000
+      }
+    },
+    "D": {
+      "description": "Hermes + Step",
+      "total_samples": 5000,
+      "components": {
+        "hermes": 4000,
+        "step20k": 1000
+      }
+    },
+    "E": {
+      "description": "xLAM only",
+      "total_samples": 5000,
+      "components": {
+        "xlam": 5000
+      }
+    },
+    "F": {
+      "description": "Qwen3.5 FC2 only",
+      "total_samples": 5000,
+      "components": {
+        "qwen35_train": 5000
+      }
+    },
+    "G": {
+      "description": "Glaive FC v2 only",
+      "total_samples": 5000,
+      "components": {
+        "glaive": 5000
+      }
+    }
+  }
+}
