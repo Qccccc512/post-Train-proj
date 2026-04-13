@@ -55,6 +55,35 @@
 - 证实：Step 数据确实带来更长序列和更高成本
 - 推翻：Step 数据并不天然比 Hermes 更“直接有效”，至少不能单独放大成主干
 
+### 2.3 与工作思路相关的研究工作
+
+本项目的设计选择，和近两年关于 tool use、agentic SFT、参数高效后训练以及灾难性遗忘的研究脉络是基本一致的。  
+如果把这些工作串起来看，它们正好分别支撑了本项目的四条主线：为什么要重视多轮工具轨迹、为什么 short-run 可能有效、为什么需要 general rehearsal、以及为什么评测不能只看训练 loss。
+
+| 方向 | 相关工作 | 核心结论 | 与本项目的关系 |
+| --- | --- | --- | --- |
+| agentic 轨迹 | [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629) | 推理与行动交错的轨迹有助于计划、状态更新与异常处理 | 支持我们优先看 multi-turn、带状态、带工具的轨迹，而不是只看单轮 FC |
+| 工具使用学习 | [Toolformer: Language Models Can Teach Themselves to Use Tools](https://arxiv.org/abs/2302.04761) | 模型需要学会何时调用工具、调用什么工具、以及如何整合返回结果 | 支持本项目把 tool use 视为独立能力目标，而不是普通 instruction tuning 的附带产物 |
+| API / function calling | [Gorilla: Large Language Model Connected with Massive APIs](https://arxiv.org/abs/2305.15334) | 面向 API 的专门训练和专门评测可以显著提升函数调用可靠性 | 支持本项目用 Hermes / xLAM / Step tool-call 这类专门数据做监督，而不是完全依赖普通对话数据 |
+| 函数调用数据质量 | [APIGen: Automated Pipeline for Generating Verifiable and Diverse Function-Calling Datasets](https://arxiv.org/abs/2406.18518) | 可验证、结构化、分布多样的数据，对 function-calling 性能很关键 | 支持我们对旧合成数据保持谨慎，也解释了为什么“格式旧、清洗弱”的 Glaive 效果不佳 |
+| agent 数据覆盖 | [xLAM: A Family of Large Action Models to Empower AI Agent Systems](https://arxiv.org/abs/2409.03215) | 统一多类 action / tool / agent 轨迹，可以显著提升 agent benchmark 表现 | 支持本项目把 xLAM 作为函数调用对照源，也提醒我们“覆盖广”不等于一定适合作主干 |
+| 参数高效微调 | [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685) | 冻结基座、只训练低秩增量参数，可以高效完成下游适配 | 直接支撑本项目采用 LoRA 而不是 full fine-tuning 来做 stage1 / stage2 搜索 |
+| 小数据 steering | [LIMA: Less Is More for Alignment](https://arxiv.org/abs/2305.11206) | 少量高质量 SFT 就足以教会模型输出风格和格式约束 | 支持本项目 short-run 能有效 steering 的观察，也解释了为什么 500-step 已经能看到明显方向性信号 |
+| 灾难性遗忘 | [An Empirical Study of Catastrophic Forgetting in Large Language Models During Continual Fine-tuning](https://arxiv.org/abs/2308.08747) | LLM 连续微调中普遍存在遗忘，且通用 instruction tuning 有助于缓解遗忘 | 直接支撑我们引入 `step general` 做 rehearsal，而不是把全部预算都压在 tool-call 数据上 |
+| rehearsal 机制 | [An Efficient Rehearsal Scheme for Catastrophic Forgetting Mitigation during Multi-stage Fine-tuning](https://arxiv.org/abs/2402.08096) | 多阶段微调里，适当 rehearsal 是缓解遗忘的有效手段 | 支持本项目的“tool-call 主干 + 少量 general rehearsal”混合思路 |
+| 指令遵循评测 | [Instruction-Following Evaluation for Large Language Models](https://arxiv.org/abs/2311.07911) | 需要用可验证约束来评估 instruction following，而不是只看主观偏好 | 支持我们用 IFEval 监控“格式纪律是否被拉坏” |
+| 中文通用能力评测 | [C-Eval: A Multi-Level Multi-Discipline Chinese Evaluation Suite for Foundation Models](https://arxiv.org/abs/2305.08322) | 中文多学科评测适合检查基础知识与推理是否退化 | 支持本项目用 C-Eval 做“别把 Qwen3-8B 原生能力拉坏”的护栏 |
+| tool benchmark | [Berkeley Function Calling Leaderboard](https://gorilla.cs.berkeley.edu/blogs/8_berkeley_function_calling_leaderboard.html) / [BFCL V3 Multi-Turn](https://gorilla.cs.berkeley.edu/blogs/13_bfcl_v3_multi_turn.html) | 函数调用评测不仅要看单步参数准确性，还要看 live、multi-turn、multi-step 的可执行性 | 直接支撑本项目把 `Non-Live` 视为单步函数调用信号，把 `Multi-Turn` 视为多步任务完成信号 |
+
+把这些工作放在一起看，本项目的主线会更容易理解：
+
+- ReAct / Toolformer / Gorilla / xLAM 这条线解释了为什么 tool use 需要专门的轨迹监督与专门 benchmark
+- LoRA / LIMA 这条线解释了为什么 short-run 也可能产生足够强的 steering 信号
+- catastrophic forgetting / rehearsal 这条线解释了为什么必须给 tool-calling 微调保留一部分通用 rehearsal 配比
+- IFEval / C-Eval / BFCL 这条线则解释了为什么本项目不能只看训练 loss，而要同时看格式、知识面和可执行 tool behavior
+
+也正因为这些相关工作成立，所以本项目里“short-run 有效、full-length 反而翻车”的现象并不违背已有研究；它更像是把**steering 有效区间**和**继续训练后的遗忘 / 过拟合边界**清楚暴露了出来。
+
 ## 3. 方法
 
 ### 3.1 数据来源与处理
@@ -191,6 +220,17 @@ stage2 search 固定了 10k 的 frozen mix，然后做 500-step 短训搜索。
 ![Stage2 search overall best eval loss](analysis/stage2/all_rounds_overall/plots/best_eval_loss_overall.png)
 
 *图 3. 合并两批 stage2 search 后的 10 组配置 `best eval_loss` 对比。进入最终 benchmark 的 `lr2e4-r16` 和 `lr1e4-r16` 都来自第二批搜索；其中 `lr2e4-r16` 的训练内 loss 更低，但最终外部 benchmark 仍由 `lr1e4-r16` 胜出。*
+
+第一批搜索并不是“无效探索”，它至少提供了三个很关键的结论：
+
+1. 低学习率区间整体收敛偏慢。第一批的 `1e-5`、`2e-5` 系列在 `best eval_loss` 上整体落后，说明 stage2 这套 frozen mix 需要更强一点的更新力度，才能在 500-step 内形成足够清晰的 steering。
+2. 在低学习率区间里，单纯增大 LoRA rank 不能替代更合适的学习率。第一批里 `r=8/16/32/64` 都试过，但 `2e-5` 下的 rank 扩大并没有把结果推到第二批 `1e-4 / 2e-4` 那个水平。
+3. 第二批搜索不是盲目扩张，而是针对第一批结果做定向外推。它把重点放到更高学习率和更合适的邻域上，最终同时产出了 `lr2e4-r16` 和 `lr1e4-r16` 两个 benchmark 候选。
+
+所以从实验设计上看，两批搜索的关系更像：
+
+- 第一批负责排除明显偏弱的低学习率组合，并确认“rank 不是当前瓶颈”
+- 第二批负责在更可能有效的学习率区间里精修，最终产出 short-run winner
 
 最终真正入选的是 `stage2_best_lr1e4_r16`。  
 它相对 `lr2e4-r16` 的优势不只是一个总分，而是更接近项目目标的“实用 agent 能力”：
